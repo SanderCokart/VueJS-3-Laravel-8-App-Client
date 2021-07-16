@@ -1,12 +1,5 @@
 <template>
-  <div id="nav">
-    <router-link to="/">Home</router-link>
-    |
-    <router-link to="/about">About</router-link>
-    |
-    <router-link to="/login">Login</router-link>
-  </div>
-  <router-view/>
+  <router-view class="route"/>
 </template>
 
 <script>
@@ -26,14 +19,23 @@ export default {
 </script>
 
 <style lang="scss">
+@import "~@fontsource/roboto/300.css";
+@import "~@fontsource/roboto/400.css";
+@import "~@fontsource/roboto/400-italic.css";
+@import "~@fontsource/roboto/700.css";
+@import "~@fontsource/roboto/900.css";
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  font-family: Roboto;
+  font-weight: 400;
 }
 
 :root {
-  --bg-dark: #333;
+
+  --bg-dark: #0C120C;
   --bg-dark-2: #222;
   --bg-light: #EEE;
   --bg-light-2: #DDD;
@@ -52,35 +54,14 @@ export default {
   --text: var(--text-dark);
 }
 
-html, body, #app {
+#app, html, body {
   width: 100%;
   height: 100%;
 }
 
-div {
-  display: flex;
-}
-
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  text-align: center;
-  background-color: var(--bg);
-  color: var(--text);
-  flex-direction: column;
-}
-
-#nav {
-  padding: 30px;
-  gap: 10px;
-  justify-content: center;
-
-  a {
-    font-weight: bold;
-    color: var(--text);
-
-    &.router-link-exact-active {
-      color: var(--accent);
-    }
-  }
+  background-color: #d1e8fa;
+  min-height: 568px;
+  min-width: 320px;
 }
 </style>
