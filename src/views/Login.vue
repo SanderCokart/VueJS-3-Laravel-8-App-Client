@@ -1,57 +1,100 @@
 <template>
   <div class="login">
-    <div>
-      <h1>Login</h1>
-      <form novalidate>
-        <input placeholder="John Doe" type="text" name="name">
-        <input placeholder="something@something.com" type="email" name="email">
-        <input type="password" placeholder="..." name="password">
-      </form>
+    <div class="container">
+      <header>
+        <h1>LOGIN</h1>
+      </header>
+      <main>
+        <DynamicForm :schema="schema" @submit="onSubmit"/>
+      </main>
     </div>
   </div>
 </template>
 
 <script>
+import * as yup from 'yup';
+import DynamicForm from '@/views/DynamicForm';
+import { useApi } from '@/plugins/api';
+
 export default {
   name: 'Login',
+  components: { DynamicForm },
   setup () {
+    const api = useApi();
 
+    const schema = {
+      fields: [
+        { as: 'input', label: 'name', name: 'name', placeholder: 'Full Name', type: 'text' },
+        { as: 'input', label: 'email', name: 'email', placeholder: 'example@gmail.com', type: 'text' },
+        { as: 'input', label: 'password', name: 'password', placeholder: 'Password', type: 'password' }
+      ],
+      validation: yup.object().shape({
+        name: yup.string().required(),
+        email: yup.string().required(),
+        password: yup.string().required()
+      })
+    };
+
+    const onSubmit = (values) => {
+      api.get('/login', values)
+      .then(res => {
+        console.log(res);
+      })
+      .catch(err => {
+        console.error(err);
+      });
+    };
+
+    return { schema, onSubmit };
   }
 };
 </script>
 
-<style scoped lang="scss">
+<style lang="scss" scoped>
 .login {
-  background-color: var(--bg-2);
-  flex: 1;
+  max-width: 1280px;
+  width: 100%;
+  margin: 0 auto;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
-  > div {
-    background-color: var(--bg);
-    margin: 10vmin;
-    flex: 1;
-    border-radius: 10px;
+  .container {
+    background: var(--bg);
+    min-width: 320px;
+    display: flex;
     flex-direction: column;
-    place-content: center;
+    align-items: center;
+    border-radius: 0 0 var(--radius) var(--radius);
+    border: solid var(--accent) 2px;
 
-    > h1 {
-      color: var(--accent);
-    }
-
-    > form {
+    header {
       display: flex;
-      flex-direction: column;
       justify-content: center;
       align-items: center;
-      gap: 20px;
-      margin: 10vmin;
+      background-color: var(--accent);
+      width: 100%;
+      height: 100px;
+      border-radius: 0 0 50% 50%;
 
-      > input {
-        width: 100%;
-        outline: none;
-        border: var(--accent) solid 1px;
-        border-radius: 10px;
-        padding: 5px;
-        background-color: var(--bg-2);
+      h1 {
+        font-weight: 900;
+        color: var(--text-2)
+      }
+    }
+
+    main {
+      height: 100%;
+      width: 100%;
+      padding: 0 20px;
+
+      form {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+        height: 100%;
+        gap: 10px;
       }
     }
   }
