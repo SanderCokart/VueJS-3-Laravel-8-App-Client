@@ -66,7 +66,6 @@ export default {
     }
 
     &:active, &:focus {
-      box-shadow: var(--shadow) 0 6px 6px 0;
       background-color: white;
       color: var(--text-2);
     }
@@ -76,6 +75,7 @@ export default {
     color: var(--text);
     font-weight: 300;
     margin-left: calc(var(--radius) / 2);
+    color: var(--accent);
   }
 
 }

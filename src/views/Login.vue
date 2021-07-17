@@ -68,6 +68,7 @@ export default {
     align-items: center;
     border-radius: 0 0 var(--radius) var(--radius);
     border: solid var(--accent) 2px;
+    box-shadow: var(--shadow) 0 6px 6px 0;
 
     header {
       display: flex;

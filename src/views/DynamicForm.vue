@@ -1,7 +1,7 @@
 <template>
   <Form :validation-schema="schema.validation" @submit="onSubmit">
-    <div v-for="{ name, ...attrs} in schema.fields" :key="name">
-      <InputField :id="name" v-bind="attrs" :name="name"/>
+    <div :style="`display: grid;grid-template-columns: repeat(${columns}, 1fr);`">
+      <InputField :id="name" v-bind="attrs" :name="name" v-for="{ name, ...attrs} in schema.fields" :key="name"/>
     </div>
     <button type="submit">Submit</button>
   </Form>
@@ -19,6 +19,10 @@ export default {
     schema: {
       type: Object,
       required: true
+    },
+    columns: {
+      type: Number,
+      default: 1,
     }
   },
   setup (_, { emit }) {
@@ -37,8 +41,9 @@ button {
   border: none;
   outline: none;
   border-radius: var(--radius);
-  color: var(--text);
-  font-weight: 900;
+  color: white;
+  text-transform: uppercase;
+  font-weight: 700;
   font-size: 2rem;
   margin: 20px 0;
   cursor: pointer;
